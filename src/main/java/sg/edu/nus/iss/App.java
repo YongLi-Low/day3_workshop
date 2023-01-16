@@ -1,6 +1,7 @@
 package sg.edu.nus.iss;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -108,6 +109,22 @@ public final class App {
         else {
             System.out.println("Your cart is empty");
         }
+    }
+
+    public static void updateCartItemToFile(List<String> cartItems, String dirPath, String fileName) throws IOException{
+        FileWriter fw = new FileWriter(dirPath + File.separator + fileName, false);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        int listCount = 0;
+        while (listCount < cartItems.size()) {
+            bw.write(cartItems.get(listCount));
+            bw.newLine();
+            listCount += 1;
+        }
+        bw.flush();
+        fw.flush();
+        bw.close();
+        fw.close();
     }
 
     public static List<String> deleteCartItem(List<String> cartItems, String input) {
