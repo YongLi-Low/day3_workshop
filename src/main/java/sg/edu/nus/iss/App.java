@@ -1,7 +1,10 @@
 package sg.edu.nus.iss;
 
+import java.io.BufferedReader;
 import java.io.Console;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,6 +59,7 @@ public final class App {
                     System.out.println("'quit' to eixt the program");
                     break;
                 case "list":
+                    cartItems = readCartItemsFromFile(dirPath, fileName)
                     listCart(cartItems);
                     break;
                 case "users":
@@ -150,6 +154,21 @@ public final class App {
         }
 
         return fileName;
+    }
+
+    public static List<String> readCartItemsFromFile(String dirPath, String fileName) throws FileNotFoundException, IOException {
+        List<String> items = new ArrayList<>();
+
+        File file = new File(dirPath + File.separator + fileName);
+
+        // create BufferedReader object
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String sr;
+        while ((sr = br.readLine()) != null) {
+            items.add(sr);
+        }
+        br.close();
+        return items;
     }
 
     public static void listUsers(String dirPath) {
